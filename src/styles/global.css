@@ -41,6 +41,11 @@ h2 {
     margin-bottom: 0;
 }
 
+#greetings {
+    font-family: 'Courier New', monospace;
+    text-decoration: none;
+}
+
 p {
     font-family: var(--body);
     font-size: 1.1rem;
