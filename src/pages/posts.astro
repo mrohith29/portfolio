@@ -2,7 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
 const pageTitle = "Posts";
-// const blogContent = fetchContent('../blog-content/blogs/blog-1.md');
 ---
 <Layout pageTitle={pageTitle}>
     <div class="gif">
@@ -11,7 +10,7 @@ const pageTitle = "Posts";
     <h2>Blogs</h2>
     <ul role="list" class="link-card-grid">
         <Card
-            url={blogContent}
+            url="../content/blogs/blog-1.md"
             image="/blog-post.webp"
             title="Blog 1"
             body="How i build this website"
