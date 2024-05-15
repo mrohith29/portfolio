@@ -1,6 +1,8 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
+const allBlogs = await getCollection("blogs");
 const pageTitle = "Posts";
 ---
 <Layout pageTitle={pageTitle}>
@@ -9,7 +11,7 @@ const pageTitle = "Posts";
     </div>
     <h2>Blogs</h2>
     <ul role="list" class="link-card-grid">
-        <Card
+        <!-- <Card
             url="../content/blogs/blog-1.md"
             image="/blog-post.webp"
             title="Blog 1"
@@ -32,9 +34,15 @@ const pageTitle = "Posts";
             image="/blog-post.webp"
             title="Blog 4"
             body="Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci"
-        />
+        /> -->
+        {allBlogs.map((card) => <Card
+            url={`/blogs/${card.slug}/`}
+            image={card.data.image && card.data.image.url} 
+            title={card.data.title} 
+            body={card.data.description}
+        />)}
     </ul>
-    <h2>YouTube</h2>
+    <!-- <h2>YouTube</h2>
     <ul role="list" class="link-card-grid">
         <Card
             url="https://www.youtube.com/"
@@ -48,5 +56,5 @@ const pageTitle = "Posts";
             title="Video 2"
             body="Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci"
         />
-    </ul>
+    </ul> -->
 </Layout>

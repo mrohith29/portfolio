@@ -1,0 +1,15 @@
+---
+import BaseLayout from './Layout.astro';
+const {frontmatter, Content} = Astro.props;
+---
+
+<BaseLayout pageTitle = {frontmatter.title}>
+    <!-- <div class="gif">
+        <img width="300" height="259" alt="RaccoonLaptopGif" src="/laptop.webp"/>
+    </div> -->
+    <article>
+        <h1>{frontmatter.title}</h1>
+        <p>Published on: {frontmatter.date}</p>
+        <Content />
+    </article>
+</BaseLayout>
