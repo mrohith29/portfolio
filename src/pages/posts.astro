@@ -1,14 +1,23 @@
 ---
-import { getCollection } from 'astro:content';
-import Layout from '../layouts/Layout.astro';
-import Card from '../components/Card.astro';
+import { getCollection } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+import Card from "../components/Card.astro";
 const allBlogs = await getCollection("blogs");
 const pageTitle = "Posts";
 ---
+
 <Layout pageTitle={pageTitle}>
     <div class="gif">
-        <img width="300" height="259" alt="RaccoonLaptopGif" src="/blog.webp"/>
+        <img width="300" height="259" alt="RaccoonLaptopGif" src="/blog.webp" />
     </div>
+    <hr>
+    <p>
+        These are my blogs which though of writing form long back and writing
+        now 😅. I write only about the things which I find cool, Intresting,
+        useful for others on programming, my personal lifestyle and more so keep
+        update and get ready to read
+    </p>
+    <hr>
     <h2>Blogs</h2>
     <ul role="list" class="link-card-grid">
         <!-- <Card
@@ -35,12 +44,16 @@ const pageTitle = "Posts";
             title="Blog 4"
             body="Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci"
         /> -->
-        {allBlogs.map((card) => <Card
-            url={`/blogs/${card.slug}/`}
-            image={card.data.image && card.data.image.url} 
-            title={card.data.title} 
-            body={card.data.description}
-        />)}
+        {
+            allBlogs.map((card) => (
+                <Card
+                    url={`/blogs/${card.slug}/`}
+                    image={card.data.image && card.data.image.url}
+                    title={card.data.title}
+                    body={card.data.description}
+                />
+            ))
+        }
     </ul>
     <!-- <h2>YouTube</h2>
     <ul role="list" class="link-card-grid">
