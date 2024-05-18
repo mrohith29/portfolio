@@ -1,7 +1,8 @@
 /* Global styles */
 :root {
     --background: #1e1e2e; 
-    --background-light: #fdebf3;
+    --background-light: #c0dc90;
+     /*#fdebf3;*/
     --button: #78c2ad;
     --text: #fdebf3;
     --text-light: #1e1e2e; 
@@ -79,16 +80,33 @@ small, li {
 .navbar__title > a, .navbar__menu > a {
     color: var(--text);
     text-decoration: none;
+    /* transition: text-decoration 0.1s ease-in-out; */
+    position: relative ;
 }
 
 .navbar__menu > a {
     margin: 0 10px;
 }
 
-.navbar__title > a:hover, .navbar__menu > a:hover, .navbar__menu > a:focus {
+/* .navbar__title > a:hover, .navbar__menu > a:hover, .navbar__menu > a:focus {
     text-decoration: underline var(--underline);
     text-decoration-thickness: 2px;
-    text-underline-offset: 6px;
+    text-underline-offset: 6px; */
+/* } */
+
+.navbar__title > a::after, .navbar__menu > a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 0;
+    background: var(--underline);
+    transition: width 0.3s ease-in-out;
+}
+
+.navbar__title > a:hover::after, .navbar__title > a:focus::after, .navbar__menu > a:hover::after, .navbar__menu > a:focus::after{
+    width: 100%;
 }
 
 /* Gifs */
