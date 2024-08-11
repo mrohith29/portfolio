@@ -12,6 +12,7 @@ worksImage2:
     alt: 'second image of your project.'
 platform: Web
 stack: Python | Flask | HTML | Jinja
+website: https://github.com/mrohith29/localai
 github: https://github.com/mrohith29/localai
 ---
 

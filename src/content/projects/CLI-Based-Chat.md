@@ -12,6 +12,7 @@ worksImage2:
     alt: 'second image of your project.'
 platform: CLI
 stack: Python
+website: https://github.com/mrohith29/CLI-Based-Chat
 github: https://github.com/mrohith29/CLI-Based-Chat
 ---
 
