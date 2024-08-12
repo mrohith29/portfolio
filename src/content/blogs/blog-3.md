@@ -10,9 +10,10 @@ It took me a long time to write my third blog, not because I didn't have anythin
 
 Here are the areas I'm focusing on, which I believe are crucial for my future development:
 
-Problem Solving
-Industry Experience (Working on real-time projects)
-Machine Learning
+- [x] Problem Solving
+- [x] Industry Experience (Working on real-time projects)
+- [x] Machine Learning
+
 1) Problem Solving:
 
 I believe that problem-solving skills are essential for any job or role, including specialized positions. Learning Data Structures and Algorithms (DSA), practicing problems at different difficulty levels, understanding the problem, and coming up with efficient solutions are not only important for cracking interviews but also for applying algorithms in real-world scenarios.
@@ -26,11 +27,11 @@ I'm happy to share that I have been working professionally for the past five mon
 I'm becoming increasingly interested in pursuing a career in Machine Learning. The impact it is having on various industries and the future scope of AI are fascinating and overwhelming. I'm working on understanding the fundamental concepts of ML and their low-level implementation to build a solid foundation in this field.
 
 Things I Should Continue to Do:
-Write blogs regularly
-Improve problem-solving skills
-Perform better professionally
-Explore Machine Learning in greater depth
-Stay humble and think about things from the ground up :)
+- [ ] Write blogs regularly
+- [ ] Improve problem-solving skills
+- [ ] Perform better professionally
+- [ ] Explore Machine Learning in greater depth
+- [ ] Stay humble and think about things from the ground up :)
 And that's all for this blog!
 
  
