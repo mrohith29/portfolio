@@ -2,7 +2,7 @@
 title: 'Matrix Arithmatics Using Threads'
 description: 'Perform arithmatic operations on two matrices faster'
 image:
-    url: '/threadproj-thumbnail.jpg'
+    url: '/threadproj-thumbnail.png'
     alt: 'Wallpaper'
 worksImage1:
     url: '/image-1.webp'
