@@ -1,48 +1,73 @@
 ---
-import { ViewTransitions } from 'astro:transitions';
-import { fade } from 'astro:transitions';
+import { ClientRouter } from 'astro:transitions';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import '../styles/global.css';
-const { pageTitle } = Astro.props;
+import '../styles/base.css';
+const { pageTitle, description = "Mariyala Rohith - Machine Learning Developer & Developer", image = "/profilepic.webp", type = "website" } = Astro.props;
 ---
 <!DOCTYPE html>
-<html transition:animate="none" lang="en">
+<html lang="en" class="scroll-smooth">
 	<head>
         <meta charset="utf-8" />
-        <meta name="description" content="Astro description">
         <meta name="viewport" content="width=device-width" />
-        <!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> -->
         <link rel="icon" type="image/webp" href="/profilepic.webp" />
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="preload" href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Pacifico&display=swap" as="style">
-        <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Pacifico&display=swap" rel="stylesheet">       
+        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">       
         <meta name="generator" content={Astro.generator} />
+        
+        <!-- Primary Meta Tags -->
         <title>{pageTitle}</title>
-        <ViewTransitions />
-	</head>
-	<body>
-        <Header />
-        <main transition:animate={fade({ duration: '0.2s' })} >
-	    <slot />
-            <Footer />
-        </main>
-        <script>
-            function colorMode() {
-                if (
-                    localStorage.theme === "light" ||
-                    (!("theme" in localStorage) &&
-                    window.matchMedia("(prefers-color-scheme: light)").matches)
-                ) {
-                    document.documentElement.classList.add("light");
-                } else {
-                    document.documentElement.classList.remove("light");
+        <meta name="title" content={pageTitle} />
+        <meta name="description" content={description} />
+
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content={type} />
+        <meta property="og:url" content={Astro.url} />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={new URL(image, Astro.url)} />
+
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content={Astro.url} />
+        <meta property="twitter:title" content={pageTitle} />
+        <meta property="twitter:description" content={description} />
+        <meta property="twitter:image" content={new URL(image, Astro.url)} />
+
+        <ClientRouter />
+        <script is:inline>
+            const getTheme = () => {
+                if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+                    return localStorage.getItem('theme');
                 }
-              }
-            
-            colorMode();
-            document.addEventListener('astro:after-swap', colorMode);
+                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    return 'dark';
+                }
+                return 'light';
+            };
+            const theme = getTheme();
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+            window.localStorage.setItem('theme', theme);
+
+            document.addEventListener('astro:after-swap', () => {
+                if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            });
         </script>
+	</head>
+	<body class="bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 transition-colors duration-300 min-h-screen flex flex-col font-[Outfit]">
+        <Header />
+        <main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8" transition:animate="fade">
+	        <slot />
+        </main>
+        <Footer />
 	</body>
 </html>

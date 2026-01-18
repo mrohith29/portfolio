@@ -1,37 +1,19 @@
 ---
-const description = "404";
-import "../styles/global.css";
+import Layout from "../layouts/Layout.astro";
+const pageTitle = "404 Not Found";
 ---
 
-<layout>
-    <div class="lost">
-        <div class="gif">
-            <img width="300" height="259" alt="Raccoon404Gif" src="/404.webp" />
+<Layout pageTitle={pageTitle}>
+    <div class="flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
+        <div class="mb-8">
+            <img width="300" height="259" alt="Raccoon 404" src="/404.webp" class="rounded-xl shadow-lg" />
         </div>
-        <h1 class="lost__header">{description}</h1>
-        <p class="lost__body">
+        <h1 class="text-6xl font-bold text-zinc-900 dark:text-white mb-4">404</h1>
+        <p class="text-xl text-zinc-600 dark:text-zinc-400 mb-8">
             It seems like you've wandered into the wrong city!
         </p>
-        <p>
-            <a class="lost__link" href="/">Return Home</a>
-        </p>
-        <!-- Start of Tawk.to Script-
-        <script type="text/javascript">
-            var Tawk_API = Tawk_API || {},
-                Tawk_LoadStart = new Date();
-            (function () {
-                var s1 = document.createElement("script"),
-                    s0 = document.getElementsByTagName("script")[0];
-                s1.async = true;
-                s1.src =
-                    "https://embed.tawk.to/66c03f870cca4f8a7a77030d/1i5ffgb6v";
-                s1.charset = "UTF-8";
-                s1.setAttribute("crossorigin", "*");
-                s0.parentNode.insertBefore(s1, s0);
-            })();
-        </script>
-        End of Tawk.to Script -->
+        <a class="px-6 py-3 rounded-full bg-indigo-600 text-white font-medium hover:bg-indigo-700 transition-colors shadow-lg hover:shadow-xl" href="/">
+            Return Home
+        </a>
     </div>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3882845778136393"
-     crossorigin="anonymous"></script>
-</layout>
+</Layout>

@@ -1,0 +1,43 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+
+const allPosts = await getCollection("blog");
+const pageTitle = "Blog | Mariyala Rohith";
+
+// Sort posts by date
+const sortedPosts = allPosts.sort((a, b) => new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf());
+---
+
+<Layout pageTitle={pageTitle}>
+    <div class="max-w-4xl mx-auto py-12">
+        <h1 class="text-4xl font-bold text-zinc-900 dark:text-white mb-2">Blog</h1>
+        <p class="text-zinc-600 dark:text-zinc-400 mb-12 text-lg">Thoughts, tutorials, and updates.</p>
+
+        <div class="grid gap-10">
+            {sortedPosts.map((post) => (
+                <article class="flex flex-col md:flex-row gap-8 items-start group">
+                     {post.data.image && (
+                        <a href={`/blog/${post.slug}/`} class="w-full md:w-1/3 aspect-video rounded-xl overflow-hidden bg-zinc-100 dark:bg-zinc-800 block">
+                             <img src={post.data.image.url} alt={post.data.image.alt || post.data.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                        </a>
+                     )}
+                    <div class="flex-1">
+                        <div class="flex items-center gap-2 text-sm text-zinc-500 dark:text-zinc-400 mb-2">
+                            <time datetime={post.data.pubDate.toISOString()}>{new Date(post.data.pubDate).toLocaleDateString()}</time>
+                            <span>&bull;</span>
+                            <span>{post.data.tags.join(', ')}</span>
+                        </div>
+                        <h2 class="text-2xl font-bold text-zinc-900 dark:text-white mb-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                            <a href={`/blog/${post.slug}/`}>{post.data.title}</a>
+                        </h2>
+                        <p class="text-zinc-600 dark:text-zinc-400 leading-relaxed line-clamp-3">
+                            {post.data.description}
+                        </p>
+                        <a href={`/blog/${post.slug}/`} class="inline-block mt-4 text-indigo-600 dark:text-indigo-400 font-medium hover:underline">Read more &rarr;</a>
+                    </div>
+                </article>
+            ))}
+        </div>
+    </div>
+</Layout>

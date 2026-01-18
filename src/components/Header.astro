@@ -1,8 +1,8 @@
 ---
 import Navigation from './Navigation.astro';
 ---
-<header>
-    <nav transition:persist >
+<header class="sticky top-0 z-50 w-full backdrop-blur-lg bg-white/70 dark:bg-zinc-950/70 border-b border-zinc-200 dark:border-zinc-800 transition-colors duration-300">
+    <nav transition:persist class="container mx-auto px-4 sm:px-6 lg:px-8">
         <Navigation />
     </nav>
 </header>

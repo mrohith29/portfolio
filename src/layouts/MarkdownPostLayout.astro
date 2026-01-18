@@ -1,0 +1,35 @@
+---
+import Layout from './Layout.astro';
+const { frontmatter } = Astro.props;
+---
+<Layout pageTitle={frontmatter.title} description={frontmatter.description} image={frontmatter.image?.url} type="article">
+    <article class="max-w-3xl mx-auto py-12 px-4 sm:px-6">
+        <header class="mb-10 text-center">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-balance bg-clip-text text-transparent bg-gradient-to-r from-zinc-900 to-zinc-500 dark:from-white dark:to-zinc-400 mb-6">{frontmatter.title}</h1>
+            <div class="flex items-center justify-center gap-4 text-zinc-600 dark:text-zinc-400 text-sm font-medium">
+                <span class="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    {frontmatter.author}
+                </span>
+                <span class="w-1.5 h-1.5 rounded-full bg-zinc-300 dark:bg-zinc-700"></span>
+                <time datetime={frontmatter.pubDate.toString().slice(0,10)} class="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    {new Date(frontmatter.pubDate).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}
+                </time>
+            </div>
+             {frontmatter.image && 
+                <img src={frontmatter.image.url} alt={frontmatter.image.alt} class="w-full h-auto mt-10 rounded-2xl shadow-xl ring-1 ring-zinc-900/5 dark:ring-white/10 object-cover max-h-[500px]" />
+            }
+        </header>
+
+        <div class="prose prose-lg dark:prose-invert mx-auto focus:outline-none">
+            <slot />
+        </div>
+
+        <div class="mt-12 pt-8 border-t border-zinc-200 dark:border-zinc-800 flex flex-wrap gap-2">
+            {frontmatter.tags.map((tag: string) => (
+                <span class="px-3 py-1 bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 rounded-full text-sm font-medium">#{tag}</span>
+            ))}
+        </div>
+    </article>
+</Layout>

@@ -1,9 +1,12 @@
 ---
-title: 'Wallpapers ?'
-description: 'No perfect Wallpaper'
-date: '17-05-2024'
+title: "Wallpapers?"
+pubDate: 2024-05-17
+description: "No perfect Wallpaper? Create your own!"
+author: "Mariyala Rohith"
 image: 
-    url: '/wallpaper-blog.png'
+    url: "/wallpaper-blog.png"
+    alt: "Wallpaper Design"
+tags: ["design", "personal", "creativity"]
 ---
 
 The feel of using the things which are created with your hands by spending your time is quite beautiful. Wether it is a plugin, application, UI, or even a wallpaper the feel with which you have created the environment of development and the things you tooks into the consideration for accomplishmnet of the product will always be remmembered whenever I see or use them.
@@ -20,14 +23,14 @@ But the things you need in the process are :
 
 You invest your time add all the scrap you find it useful and insert them.
 
-This is one of the wallpapers which I designed might descibe my thoughts
+This is one of the wallpapers which I designed might descibe my thoughts:
 
-<img width="500" src="/wallpaper-blog.png">
+<img width="500" src="/wallpaper-blog.png" alt="Custom Wallpaper" class="rounded-lg shadow-md my-4">
 
 Even I found nothing in the internet which accurately describes you so I took a step to design my own.
-
 
 So do whatever you want and taste the dish cooked by you.
 
 ---
+
 Meet you in my next blog 👋

@@ -2,53 +2,31 @@
 import { getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
 import Card from "../components/Card.astro";
+
 const allProjects = await getCollection("projects");
-const pageTitle = "Works";
+const pageTitle = "Works | Mariyala Rohith";
 ---
 
 <Layout pageTitle={pageTitle}>
-    <div class="gif">
-        <img
-            width="300"
-            height="259"
-            alt="RaccoonLaptopGif"
-            src="/laptop.webp"
-        />
-    </div>
-    <hr />
-    <p>Oh great you are intrested in seeing my works cool ! have a look</p>
-    <hr />
-    <h2>Projects</h2>
-    <ul role="list" class="link-card-grid">
-        {
-            allProjects.map((card) => (
-                <Card
-                    url={`/projects/${card.slug}/`}
-                    image={card.data.image.url}
-                    title={card.data.title}
-                    body={card.data.description}
-                />
-            ))
-        }
-    </ul>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3882845778136393"
-     crossorigin="anonymous"></script>
-    <!-- <div>
-        Start of Tawk.to Script
-        <script type="text/javascript">
-            var Tawk_API = Tawk_API || {},
-                Tawk_LoadStart = new Date();
-            (function () {
-                var s1 = document.createElement("script"),
-                    s0 = document.getElementsByTagName("script")[0];
-                s1.async = true;
-                s1.src =
-                    "https://embed.tawk.to/66c03f870cca4f8a7a77030d/1i5ffgb6v";
-                s1.charset = "UTF-8";
-                s1.setAttribute("crossorigin", "*");
-                s0.parentNode.insertBefore(s1, s0);
-            })();
-        </script>
-        End of Tawk.to Script
-    </div> -->
+    <section class="py-12">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+            <h1 class="text-4xl font-bold mb-4 text-zinc-900 dark:text-white">My Projects</h1>
+            <p class="text-zinc-600 dark:text-zinc-400 text-lg">
+                A collection of things I've built, from small experiments to full-stack applications.
+            </p>
+        </div>
+
+        <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {
+                allProjects.map((card) => (
+                    <Card
+                        url={`/projects/${card.slug}/`}
+                        image={card.data.image.url}
+                        title={card.data.title}
+                        body={card.data.description}
+                    />
+                ))
+            }
+        </ul>
+    </section>
 </Layout>

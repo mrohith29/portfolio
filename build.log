@@ -1,0 +1,61 @@
+﻿
+> portfolio@0.0.1 build
+> astro build
+
+12:42:18 [content] Syncing content
+12:42:18 [content] Synced content
+12:42:18 [types] Generated 1.82s
+12:42:18 [build] output: "static"
+12:42:18 [build] mode: "static"
+12:42:18 [build] directory: E:\github repository\portfolio\dist\
+12:42:18 [build] Collecting build info...
+12:42:18 [build] Γ£ô Completed in 1.90s.
+12:42:18 [build] Building static entrypoints...
+node.exe : 12:42:20 
+[ERROR] [vite] 
+[31mΓ£ù[39m Build 
+failed in 2.06s
+At C:\Users\mariy\App
+Data\Roaming\npm\npm.
+ps1:24 char:5
++     & "node$exe"  "
+$basedir/node_modules
+/npm/bin/npm-cli.js" 
+$args
++     ~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~
+    + CategoryInfo   
+           : NotSpe  
+  cified: (12:42:2   
+ 0 [ERROR...faile    
+d in 2.06s:Strin    
+g) [], RemoteExc    
+eption
+    + FullyQualified 
+   ErrorId : Native  
+  CommandError
+ 
+Could not resolve "..
+/styles/global.css" 
+from 
+"src/pages/404.astro"
+file: E:/github repos
+itory/portfolio/src/p
+ages/404.astro
+  Stack trace:
+    at 
+getRollupError (file:
+///E:/github%20reposi
+tory/portfolio/node_m
+odules/rollup/dist/es
+/shared/parseAst.js:4
+01:41)
+    at ModuleLoader.h
+andleInvalidResolvedI
+d (file:///E:/github%
+20repository/portfoli
+o/node_modules/rollup
+/dist/es/shared/node-
+entry.js:21534:24)
