@@ -77,6 +77,40 @@ const ogImage = new URL(image, Astro.site ?? Astro.url);
       <slot />
     </main>
     <Footer />
+
+    <!-- Reliable in-page anchor scrolling (ClientRouter otherwise swallows hash jumps) -->
+    <script>
+      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const scrollToHash = (hash: string) => {
+        if (!hash || hash === "#") return false;
+        let el: Element | null = null;
+        try {
+          el = document.querySelector(hash);
+        } catch {
+          return false;
+        }
+        if (!el) return false;
+        el.scrollIntoView({ behavior: prefersReduced ? "auto" : "smooth", block: "start" });
+        return true;
+      };
+
+      // Same-page hash links (e.g. "#contact")
+      document.addEventListener("click", (e) => {
+        const target = e.target as HTMLElement | null;
+        const a = target?.closest?.("a[href]") as HTMLAnchorElement | null;
+        if (!a) return;
+        const href = a.getAttribute("href");
+        if (href && href.startsWith("#") && scrollToHash(href)) {
+          e.preventDefault();
+          history.replaceState(null, "", href);
+        }
+      });
+
+      // Landing on a URL that already has a hash (e.g. /#contact from another page)
+      document.addEventListener("astro:page-load", () => {
+        if (location.hash) requestAnimationFrame(() => scrollToHash(location.hash));
+      });
+    </script>
   </body>
 </html>
 

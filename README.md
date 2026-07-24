@@ -27,7 +27,7 @@ The content model is defined in [`.pages.yml`](./.pages.yml).
 ## Project structure
 
 ```text
-public/            static assets, fonts (self-hosted JetBrains Mono), og.png, resume.pdf
+public/            static assets, fonts (self-hosted JetBrains Mono), og.png
 scripts/og.mjs     regenerates the social-share image  →  node scripts/og.mjs
 src/
 ├── components/    Navigation, Footer, FeaturedWork, WorkRow, ThemeIcon …

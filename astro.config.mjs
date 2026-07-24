@@ -8,7 +8,6 @@ export default defineConfig({
   site: 'https://rohithmariyala.com',
 
   redirects: {
-      '/resume': '/resume.pdf',
       '/clock': 'https://rohithmariyala.me/JS-clock/',
   },
 
