@@ -29,7 +29,7 @@ const learning = projects
     <div class="work-grid">
       {featured.map((p) => (
         <FeaturedWork
-          slug={p.slug}
+          slug={p.id}
           title={p.data.title}
           description={p.data.description}
           problem={p.data.problem}
@@ -46,7 +46,7 @@ const learning = projects
     <div class="row-list">
       {learning.map((p) => (
         <WorkRow
-          slug={p.slug}
+          slug={p.id}
           title={p.data.title}
           description={p.data.description}
           tech={p.data.tech}

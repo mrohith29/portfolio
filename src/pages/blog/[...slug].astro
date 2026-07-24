@@ -1,16 +1,16 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import MarkdownPostLayout from "../../layouts/MarkdownPostLayout.astro";
 
 export async function getStaticPaths() {
   const blogEntries = await getCollection("blog");
   return blogEntries
     .filter((e) => !e.data.draft)
-    .map((entry) => ({ params: { slug: entry.slug }, props: { entry } }));
+    .map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
 }
 
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 
 const words = entry.body.trim().split(/\s+/).length;
 const readingTime = `${Math.max(1, Math.round(words / 200))} min read`;
