@@ -1,19 +1,22 @@
 ---
 import Layout from "../layouts/Layout.astro";
-const pageTitle = "404 Not Found";
+const pageTitle = "404 — command not found";
 ---
-
 <Layout pageTitle={pageTitle}>
-    <div class="flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
-        <div class="mb-8">
-            <img width="300" height="259" alt="Raccoon 404" src="/404.webp" class="rounded-xl shadow-lg" />
-        </div>
-        <h1 class="text-6xl font-bold text-zinc-900 dark:text-white mb-4">404</h1>
-        <p class="text-xl text-zinc-600 dark:text-zinc-400 mb-8">
-            It seems like you've wandered into the wrong city!
-        </p>
-        <a class="px-6 py-3 rounded-full bg-indigo-600 text-white font-medium hover:bg-indigo-700 transition-colors shadow-lg hover:shadow-xl" href="/">
-            Return Home
-        </a>
+  <section class="container-t nf">
+    <p class="prompt"><span class="user">rohith@prod</span>:<span class="path">~</span>$ <span class="cmd">cd {Astro.url.pathname}</span></p>
+    <h1 class="nf-code">404<span class="cursor" aria-hidden="true"></span></h1>
+    <p class="nf-msg">bash: no such file or directory — you've wandered off the path.</p>
+    <div class="nf-actions">
+      <a href="/" class="btn btn-primary">cd ~ (home)</a>
+      <a href="/works/" class="btn btn-ghost">view work</a>
     </div>
+  </section>
 </Layout>
+
+<style>
+  .nf { padding-block: 4rem 3rem; max-width: 640px; }
+  .nf-code { font-size: clamp(3.5rem, 14vw, 7rem); color: var(--accent); text-shadow: var(--glow); margin: 1rem 0 0.5rem; }
+  .nf-msg { color: var(--fg-soft); margin-bottom: 2rem; }
+  .nf-actions { display: flex; flex-wrap: wrap; gap: 0.7rem; }
+</style>

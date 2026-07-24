@@ -1,0 +1,48 @@
+---
+interface Props {
+  slug: string;
+  title: string;
+  description: string;
+  tech?: string[];
+  year?: string;
+}
+const { slug, title, description, tech = [], year } = Astro.props;
+---
+<a href={`/projects/${slug}/`} class="wr">
+  <div class="wr-head">
+    <span class="wr-mark">›</span>
+    <h4 class="wr-title">{title}</h4>
+    {year && <span class="wr-year">{year}</span>}
+  </div>
+  <p class="wr-desc">{description}</p>
+  {tech.length > 0 && (
+    <div class="wr-tech">{tech.map((t) => <span>{t}</span>)}</div>
+  )}
+</a>
+
+<style>
+  .wr {
+    display: block;
+    padding: 1rem 0;
+    border-top: 1px solid var(--line);
+    transition: padding-left 0.18s ease;
+  }
+  .wr:hover { padding-left: 0.5rem; }
+  .wr:hover .wr-mark { color: var(--accent); }
+  .wr:hover .wr-title { color: var(--accent); }
+  .wr-head { display: flex; align-items: baseline; gap: 0.6rem; }
+  .wr-mark { color: var(--faint); font-weight: 700; transition: color 0.18s ease; }
+  .wr-title { font-size: 1.02rem; transition: color 0.18s ease; }
+  .wr-year {
+    margin-left: auto;
+    font-size: 0.72rem;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .wr-desc { color: var(--fg-soft); font-size: 0.88rem; margin: 0.3rem 0 0 1.2rem; max-width: 62ch; }
+  .wr-tech {
+    display: flex; flex-wrap: wrap; gap: 0.7rem;
+    margin: 0.5rem 0 0 1.2rem;
+    font-size: 0.72rem; color: var(--muted);
+  }
+</style>

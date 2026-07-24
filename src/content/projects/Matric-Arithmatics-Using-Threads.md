@@ -1,19 +1,17 @@
 ---
-title: 'Matrix Arithmatics Using Threads'
-description: 'Perform arithmatic operations on two matrices faster'
+title: "Matrix Arithmetic with Threads"
+description: "Speeding up matrix operations by giving each cell its own thread."
 image:
-    url: '/threadproj-thumbnail.png'
-    alt: 'Wallpaper'
-worksImage1:
-    url: '/image-1.webp'
-    alt: 'first image of your project.'
-worksImage2:
-    url: '/image-2.webp'
-    alt: 'second image of your project.'
-platform: WebApp
-stack: Java | Swings
-website: https://github.com/mrohith29/Matrix-Operations-with-Threads
-github: https://github.com/mrohith29/Matrix-Operations-with-Threads
+    url: "/threadproj-thumbnail.png"
+    alt: "Threaded matrix operations"
+platform: "Desktop"
+stack: "Java | Swing"
+website: "https://github.com/mrohith29/Matrix-Operations-with-Threads"
+github: "https://github.com/mrohith29/Matrix-Operations-with-Threads"
+featured: false
+year: "2024"
+order: 4
+tech: ["Java", "Threads", "Swing"]
 ---
 
-The general arithmatic operation uses single thread and loops calculate every single output and bind them, it's time consuming when the order of the matrices are bigger, but assigining each thread a function and calculating each value with single thread would fasten the calculation and reduce the output time. Therefore multiprocessing is better than monoprocessing
+Standard matrix arithmetic loops over every cell on a single thread — slow once the matrices get large. This project assigns each computation its own **thread**, so values compute in parallel and the total time drops. A concrete lesson in why multiprocessing beats monoprocessing for parallelizable work.

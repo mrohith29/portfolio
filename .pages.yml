@@ -1,0 +1,80 @@
+# Pages CMS config — https://pagescms.org
+# Log in at https://app.pagescms.org with GitHub, pick this repo, and you get
+# a form-based editor for everything below. Saving commits to the repo and
+# Vercel rebuilds the site automatically. No code, no manual commits.
+
+media:
+  input: public
+  output: /
+
+content:
+  - name: blog
+    label: Writing (blog posts)
+    type: collection
+    path: src/content/blog
+    filename: "{fields.title}.md"
+    view:
+      fields: [title, pubDate, draft]
+      sort: [pubDate]
+      default:
+        sort: pubDate
+        order: desc
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - { name: pubDate, label: Publish date, type: date, required: true, options: { format: "yyyy-MM-dd" } }
+      - { name: description, label: Short description, type: text, required: true }
+      - { name: author, label: Author, type: string, default: "Rohith Mariyala" }
+      - { name: tags, label: Tags, type: string, list: true }
+      - { name: draft, label: Draft (hide from site until ready), type: boolean, default: false }
+      - name: image
+        label: Cover image (optional)
+        type: object
+        fields:
+          - { name: url, label: Image, type: image }
+          - { name: alt, label: Alt text, type: string }
+      - { name: body, label: Post body, type: rich-text }
+
+  - name: projects
+    label: Work / projects
+    type: collection
+    path: src/content/projects
+    view:
+      fields: [title, featured, year]
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - { name: description, label: Short description, type: text, required: true }
+      - { name: featured, label: Featured (show as a case study), type: boolean, default: false }
+      - { name: year, label: Year, type: string }
+      - { name: order, label: Sort order (lower = first), type: number, default: 999 }
+      - { name: platform, label: Platform, type: string }
+      - { name: stack, label: Full stack line, type: string }
+      - { name: tech, label: Tech tags, type: string, list: true }
+      - { name: problem, label: The problem it solves, type: text }
+      - { name: outcome, label: What you built / outcome, type: text }
+      - { name: website, label: Live URL, type: string }
+      - { name: github, label: GitHub URL, type: string }
+      - name: image
+        label: Cover image
+        type: object
+        fields:
+          - { name: url, label: Image, type: image }
+          - { name: alt, label: Alt text, type: string }
+      - { name: body, label: Case study body, type: rich-text }
+
+  - name: experience
+    label: Experience (career timeline)
+    type: collection
+    path: src/content/experience
+    view:
+      fields: [role, company, start]
+    fields:
+      - { name: role, label: Role / title, type: string, required: true }
+      - { name: company, label: Company, type: string, required: true }
+      - { name: location, label: Location, type: string }
+      - { name: start, label: Start (YYYY-MM), type: string, required: true }
+      - { name: end, label: End (YYYY-MM, blank = present), type: string }
+      - { name: current, label: Current role, type: boolean, default: false }
+      - { name: url, label: Company URL, type: string }
+      - { name: summary, label: One-line summary, type: text, required: true }
+      - { name: tech, label: Tech tags, type: string, list: true }
+      - { name: body, label: Highlights (bullet points), type: rich-text }

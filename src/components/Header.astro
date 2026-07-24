@@ -1,8 +1,19 @@
 ---
-import Navigation from './Navigation.astro';
+import Navigation from "./Navigation.astro";
 ---
-<header class="sticky top-0 z-50 w-full backdrop-blur-lg bg-white/70 dark:bg-zinc-950/70 border-b border-zinc-200 dark:border-zinc-800 transition-colors duration-300">
-    <nav transition:persist class="container mx-auto px-4 sm:px-6 lg:px-8">
-        <Navigation />
-    </nav>
+<header class="site-header">
+  <Navigation />
 </header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    width: 100%;
+    background: color-mix(in srgb, var(--bg) 78%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+</style>

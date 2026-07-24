@@ -1,20 +1,79 @@
 ---
-import ThemeIcon from './ThemeIcon.astro';
+import ThemeIcon from "./ThemeIcon.astro";
+const { pathname } = Astro.url;
+const isActive = (href: string) =>
+  href === "/" ? pathname === "/" : pathname.startsWith(href);
+
+const links = [
+  { href: "/works/", label: "work" },
+  { href: "/experience/", label: "experience" },
+  { href: "/blog/", label: "writing" },
+  { href: "/now/", label: "now" },
+];
 ---
-<div class="flex items-center justify-between w-full py-4 max-w-5xl mx-auto">
-    <div class="font-bold text-xl tracking-tighter">
-        <a href="/" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">@mrohith29</a>
-    </div>
-    <div class="flex items-center gap-6 font-medium text-sm sm:text-base">
-        <a href="/works/" class="hover:text-amber-500 transition-colors relative group">
-            Works
-            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-amber-500 transition-all group-hover:w-full"></span>
-        </a>
-        <a href="/blog/" class="hover:text-amber-500 transition-colors relative group">
-            Blog
-            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-amber-500 transition-all group-hover:w-full"></span>
-        </a>
-        <a href="https://github.com/mrohith29/portfolio" target="_blank" class="hover:text-amber-500 transition-colors hidden sm:inline-block">GitHub</a>
-        <ThemeIcon />
-    </div>
+<div class="nav-inner container-t">
+  <a href="/" class="brand" aria-label="Home">
+    <span class="tilde">~/</span>rohith
+  </a>
+
+  <nav class="nav-links" aria-label="Primary">
+    {links.map((l) => (
+      <a href={l.href} class:list={["nav-link", { active: isActive(l.href) }]}>
+        {l.label}
+      </a>
+    ))}
+    <a href="https://github.com/mrohith29" target="_blank" rel="noopener" class="nav-link ext">github ↗</a>
+    <ThemeIcon />
+  </nav>
 </div>
+
+<style>
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 0.9rem;
+  }
+  .brand {
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: -0.02em;
+    color: var(--fg);
+  }
+  .brand .tilde { color: var(--accent); }
+  .brand:hover { color: var(--accent); }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+    font-size: 0.82rem;
+  }
+  .nav-link {
+    color: var(--muted);
+    position: relative;
+    transition: color 0.15s ease;
+  }
+  .nav-link:hover { color: var(--fg); }
+  .nav-link.active { color: var(--accent); }
+  .nav-link.active::before {
+    content: "";
+    position: absolute;
+    left: -0.7rem;
+    top: 50%;
+    translate: 0 -50%;
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: var(--glow);
+  }
+  .nav-link.ext { color: var(--faint); }
+  .nav-link.ext:hover { color: var(--accent); }
+
+  @media (max-width: 640px) {
+    .nav-links { gap: 0.75rem; font-size: 0.72rem; flex-wrap: wrap; justify-content: flex-end; }
+    .nav-link.ext { display: none; }
+    .nav-link.active::before { display: none; }
+  }
+</style>

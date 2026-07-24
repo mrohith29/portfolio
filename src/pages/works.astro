@@ -1,32 +1,68 @@
 ---
-import { getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
-import Card from "../components/Card.astro";
+import FeaturedWork from "../components/FeaturedWork.astro";
+import WorkRow from "../components/WorkRow.astro";
+import { getCollection } from "astro:content";
 
-const allProjects = await getCollection("projects");
-const pageTitle = "Works | Mariyala Rohith";
+const pageTitle = "Work — Rohith Mariyala";
+const projects = await getCollection("projects");
+
+const featured = projects
+  .filter((p) => p.data.featured)
+  .sort((a, b) => a.data.order - b.data.order);
+const learning = projects
+  .filter((p) => !p.data.featured)
+  .sort((a, b) => a.data.order - b.data.order);
 ---
-
 <Layout pageTitle={pageTitle}>
-    <section class="py-12">
-        <div class="text-center max-w-2xl mx-auto mb-16">
-            <h1 class="text-4xl font-bold mb-4 text-zinc-900 dark:text-white">My Projects</h1>
-            <p class="text-zinc-600 dark:text-zinc-400 text-lg">
-                A collection of things I've built, from small experiments to full-stack applications.
-            </p>
-        </div>
+  <section class="container-t">
+    <header class="page-head">
+      <p class="prompt"><span class="user">rohith@prod</span>:<span class="path">~</span>$ <span class="cmd">ls -la ./work</span></p>
+      <h1 class="page-title">Work</h1>
+      <p class="page-intro">
+        I don't list every language I've touched. Instead — here's what I've actually
+        built, and the tools I reached for because the problem needed them.
+      </p>
+    </header>
 
-        <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {
-                allProjects.map((card) => (
-                    <Card
-                        url={`/projects/${card.slug}/`}
-                        image={card.data.image.url}
-                        title={card.data.title}
-                        body={card.data.description}
-                    />
-                ))
-            }
-        </ul>
-    </section>
+    <div class="group-label eyebrow">shipped &amp; production-shaped</div>
+    <div class="work-grid">
+      {featured.map((p) => (
+        <FeaturedWork
+          slug={p.slug}
+          title={p.data.title}
+          description={p.data.description}
+          problem={p.data.problem}
+          outcome={p.data.outcome}
+          tech={p.data.tech}
+          year={p.data.year}
+          github={p.data.github}
+          website={p.data.website}
+        />
+      ))}
+    </div>
+
+    <div class="group-label eyebrow later">built to learn — where the fundamentals came from</div>
+    <div class="row-list">
+      {learning.map((p) => (
+        <WorkRow
+          slug={p.slug}
+          title={p.data.title}
+          description={p.data.description}
+          tech={p.data.tech}
+          year={p.data.year}
+        />
+      ))}
+    </div>
+  </section>
 </Layout>
+
+<style>
+  .page-head { margin-bottom: 2.6rem; }
+  .page-title { font-size: clamp(2rem, 6vw, 3rem); color: var(--fg); margin: 0.9rem 0 0.7rem; }
+  .page-intro { color: var(--fg-soft); max-width: 58ch; line-height: 1.75; }
+  .group-label { display: block; margin-bottom: 1.3rem; }
+  .group-label.later { margin-top: 3.5rem; }
+  .work-grid { display: grid; gap: 1.4rem; }
+  .row-list { display: flex; flex-direction: column; border-bottom: 1px solid var(--line); }
+</style>

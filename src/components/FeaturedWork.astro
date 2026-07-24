@@ -1,0 +1,104 @@
+---
+interface Props {
+  slug: string;
+  title: string;
+  description: string;
+  problem?: string;
+  outcome?: string;
+  tech?: string[];
+  year?: string;
+  github: string;
+  website: string;
+}
+const { slug, title, description, problem, outcome, tech = [], year, github, website } = Astro.props;
+const liveIsGithub = website === github;
+---
+<article class="fw panel">
+  <div class="panel-bar">
+    <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+    <span class="ttl">~/work/{slug}</span>
+    {year && <span class="fw-year">{year}</span>}
+  </div>
+
+  <div class="fw-body">
+    <a href={`/projects/${slug}/`} class="fw-title-link">
+      <h3 class="fw-title">{title}</h3>
+    </a>
+    <p class="fw-desc">{description}</p>
+
+    {problem && (
+      <p class="fw-line"><span class="fw-key">problem</span>{problem}</p>
+    )}
+    {outcome && (
+      <p class="fw-line"><span class="fw-key ok">built</span>{outcome}</p>
+    )}
+
+    {tech.length > 0 && (
+      <div class="fw-tech">
+        {tech.map((t) => <span class="chip">{t}</span>)}
+      </div>
+    )}
+
+    <div class="fw-actions">
+      <a href={`/projects/${slug}/`} class="fw-cta">read the case study →</a>
+      <div class="fw-ext">
+        <a href={github} target="_blank" rel="noopener">source ↗</a>
+        {!liveIsGithub && <a href={website} target="_blank" rel="noopener">live ↗</a>}
+      </div>
+    </div>
+  </div>
+</article>
+
+<style>
+  .fw { transition: border-color 0.2s ease, transform 0.2s ease; }
+  .fw:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+  .panel-bar { position: relative; }
+  .fw-year {
+    margin-left: auto;
+    font-size: 0.72rem;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .fw-body { padding: 1.4rem 1.4rem 1.3rem; }
+  .fw-title-link { display: inline-block; }
+  .fw-title {
+    font-size: 1.5rem;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+    text-shadow: var(--glow);
+  }
+  .fw-title-link:hover .fw-title { text-decoration: underline; text-underline-offset: 4px; }
+  .fw-desc { color: var(--fg-soft); margin-bottom: 1rem; max-width: 60ch; }
+  .fw-line {
+    font-size: 0.85rem;
+    color: var(--muted);
+    display: grid;
+    grid-template-columns: 4.5rem 1fr;
+    gap: 0.6rem;
+    padding: 0.35rem 0;
+    border-top: 1px dashed var(--line-soft);
+    max-width: 64ch;
+  }
+  .fw-key {
+    color: var(--faint);
+    text-transform: uppercase;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    padding-top: 0.15rem;
+  }
+  .fw-key.ok { color: var(--ok); }
+  .fw-tech { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 1rem 0 1.2rem; }
+  .fw-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--line);
+  }
+  .fw-cta { color: var(--accent); font-size: 0.85rem; font-weight: 500; }
+  .fw-cta:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .fw-ext { display: flex; gap: 1rem; font-size: 0.8rem; color: var(--muted); }
+  .fw-ext a:hover { color: var(--accent); }
+</style>

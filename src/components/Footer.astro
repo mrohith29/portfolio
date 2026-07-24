@@ -1,13 +1,40 @@
 ---
 const year = new Date().getFullYear();
+const links = [
+  { href: "https://github.com/mrohith29", label: "github" },
+  { href: "https://www.linkedin.com/in/mariyala-rohith/", label: "linkedin" },
+  { href: "mailto:mariyalarohith29@gmail.com", label: "email" },
+  { href: "/resume.pdf", label: "resume" },
+];
 ---
-<footer class="mt-20 py-8 border-t border-zinc-200 dark:border-zinc-800 text-center text-sm text-zinc-500 dark:text-zinc-400">
-    <div class="container mx-auto px-4">
-        <ul class="flex justify-center gap-6 mb-4">
-            <li><a class="hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors font-medium" href="https://www.github.com/mrohith29" target="_blank">GitHub</a></li>
-            <li><a class="hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors font-medium" href="mailto:mariyalarohith29@gmail.com">Email</a></li>
-            <li><a class="hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors font-medium" href="https://www.linkedin.com/in/mariyala-rohith/" target="_blank">LinkedIn</a></li>
-        </ul>
-        <small>&copy; {year} Built with Astro & Tailwind by <a class="font-medium hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors" href="https://github.com/mrohith29/">Mariyala Rohith</a>.</small>
+<footer class="site-footer">
+  <div class="container-t footer-inner">
+    <div class="foot-prompt">
+      <span class="prompt"><span class="user">rohith@prod</span>:<span class="path">~</span>$ </span>
+      <span class="foot-cmd">exit</span>
     </div>
+    <nav class="foot-links" aria-label="Social">
+      {links.map((l) => (
+        <a href={l.href} target={l.href.startsWith("http") ? "_blank" : undefined} rel="noopener" class="foot-link">{l.label}</a>
+      ))}
+    </nav>
+    <small class="foot-meta">
+      © {year} Rohith Mariyala — built with Astro, deployed on Vercel. No cookies, no trackers.
+    </small>
+  </div>
 </footer>
+
+<style>
+  .site-footer {
+    margin-top: 5rem;
+    border-top: 1px solid var(--line);
+    padding-block: 2rem;
+  }
+  .footer-inner { display: flex; flex-direction: column; gap: 1rem; }
+  .foot-prompt { font-size: 0.82rem; }
+  .foot-prompt .foot-cmd { color: var(--muted); }
+  .foot-links { display: flex; flex-wrap: wrap; gap: 1.2rem; font-size: 0.85rem; }
+  .foot-link { color: var(--fg-soft); transition: color 0.15s ease; }
+  .foot-link:hover { color: var(--accent); }
+  .foot-meta { color: var(--muted); font-size: 0.72rem; }
+</style>

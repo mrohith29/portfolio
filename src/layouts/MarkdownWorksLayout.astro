@@ -1,35 +1,61 @@
 ---
 import Layout from "./Layout.astro";
 const { frontmatter } = Astro.props;
+const liveIsGithub = frontmatter.website === frontmatter.github;
 ---
+<Layout pageTitle={`${frontmatter.title} — Rohith Mariyala`} description={frontmatter.description}>
+  <article class="proj container-t">
+    <a href="/works/" class="back">← cd ../work</a>
 
-<Layout pageTitle={frontmatter.title}>
-    <article class="max-w-4xl mx-auto py-12">
-        <div class="mb-8 text-center">
-             <h1 class="text-3xl md:text-5xl font-bold mb-4 text-zinc-900 dark:text-white">{frontmatter.title}</h1>
-        </div>
+    <header class="proj-head">
+      <p class="prompt"><span class="user">rohith@prod</span>:<span class="path">~/work</span>$ <span class="cmd">cat {frontmatter.title.toLowerCase().replace(/\s+/g, "-")}</span></p>
+      <h1 class="proj-title">{frontmatter.title}</h1>
+      <p class="proj-desc">{frontmatter.description}</p>
 
-        <div class="flex flex-wrap justify-center gap-4 mb-12">
-            <div class="flex flex-col items-center p-4 bg-zinc-50 dark:bg-zinc-800 rounded-xl min-w-[120px]">
-                <span class="text-xs uppercase tracking-wider font-semibold text-zinc-500 dark:text-zinc-400 mb-1">Platform</span>
-                <span class="font-medium text-zinc-900 dark:text-white">{frontmatter.platform}</span>
-            </div>
-            <div class="flex flex-col items-center p-4 bg-zinc-50 dark:bg-zinc-800 rounded-xl min-w-[120px]">
-                <span class="text-xs uppercase tracking-wider font-semibold text-zinc-500 dark:text-zinc-400 mb-1">Stack</span>
-                <span class="font-medium text-zinc-900 dark:text-white">{frontmatter.stack}</span>
-            </div>
-            <div class="flex flex-col items-center p-4 bg-zinc-50 dark:bg-zinc-800 rounded-xl min-w-[120px]">
-                <span class="text-xs uppercase tracking-wider font-semibold text-zinc-500 dark:text-zinc-400 mb-1">Website</span>
-                <a href={frontmatter.website} target="_blank" class="text-indigo-600 dark:text-indigo-400 hover:underline font-medium">Link</a>
-            </div>
-            <div class="flex flex-col items-center p-4 bg-zinc-50 dark:bg-zinc-800 rounded-xl min-w-[120px]">
-                <span class="text-xs uppercase tracking-wider font-semibold text-zinc-500 dark:text-zinc-400 mb-1">GitHub</span>
-                <a href={frontmatter.github} target="_blank" class="text-indigo-600 dark:text-indigo-400 hover:underline font-medium">Repo</a>
-            </div>
+      <div class="proj-meta panel">
+        <div class="panel-bar">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          <span class="ttl">./meta</span>
         </div>
+        <div class="meta-body">
+          <div class="kv"><span class="k">platform</span><span class="v">{frontmatter.platform}</span></div>
+          <div class="kv"><span class="k">stack</span><span class="v">{frontmatter.stack}</span></div>
+          {frontmatter.year && <div class="kv"><span class="k">year</span><span class="v">{frontmatter.year}</span></div>}
+          <div class="kv">
+            <span class="k">links</span>
+            <span class="v">
+              <a href={frontmatter.github} target="_blank" rel="noopener" class="link">source ↗</a>
+              {!liveIsGithub && <> · <a href={frontmatter.website} target="_blank" rel="noopener" class="link">live ↗</a></>}
+            </span>
+          </div>
+        </div>
+      </div>
+    </header>
 
-        <div class="prose prose-lg dark:prose-invert mx-auto max-w-none">
-            <slot />
-        </div>
-    </article>
+    {frontmatter.image?.url && (
+      <img class="proj-hero" src={frontmatter.image.url} alt={frontmatter.image.alt} loading="lazy" />
+    )}
+
+    <div class="prose-t proj-body">
+      <slot />
+    </div>
+
+    <footer class="proj-foot">
+      <a href="/works/" class="link">← back to all work</a>
+    </footer>
+  </article>
 </Layout>
+
+<style>
+  .proj { max-width: 760px; }
+  .back { display: inline-block; font-size: 0.82rem; color: var(--muted); margin-bottom: 1.6rem; }
+  .back:hover { color: var(--accent); }
+  .proj-head { margin-bottom: 2rem; }
+  .proj-title { font-size: clamp(1.8rem, 5vw, 2.6rem); color: var(--fg); margin: 0.9rem 0 0.6rem; }
+  .proj-desc { color: var(--fg-soft); font-size: 1.05rem; max-width: 62ch; margin-bottom: 1.6rem; }
+  .proj-meta { margin-top: 1.2rem; }
+  .meta-body { padding: 0.8rem 1.1rem; font-size: 0.85rem; }
+  .proj-hero { width: 100%; border-radius: 12px; border: 1px solid var(--line); margin-bottom: 2.2rem; }
+  .proj-body { margin-bottom: 3rem; }
+  .proj-foot { border-top: 1px solid var(--line); padding-top: 1.4rem; }
+</style>

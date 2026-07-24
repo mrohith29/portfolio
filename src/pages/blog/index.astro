@@ -1,43 +1,68 @@
 ---
-import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
 
-const allPosts = await getCollection("blog");
-const pageTitle = "Blog | Mariyala Rohith";
+const pageTitle = "Writing — Rohith Mariyala";
 
-// Sort posts by date
-const sortedPosts = allPosts.sort((a, b) => new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf());
+const posts = (await getCollection("blog"))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString("en-US", { day: "2-digit", month: "short", year: "numeric" });
 ---
-
 <Layout pageTitle={pageTitle}>
-    <div class="max-w-4xl mx-auto py-12">
-        <h1 class="text-4xl font-bold text-zinc-900 dark:text-white mb-2">Blog</h1>
-        <p class="text-zinc-600 dark:text-zinc-400 mb-12 text-lg">Thoughts, tutorials, and updates.</p>
+  <section class="container-t">
+    <header class="page-head">
+      <p class="prompt"><span class="user">rohith@prod</span>:<span class="path">~</span>$ <span class="cmd">ls ./writing -t</span></p>
+      <h1 class="page-title">Writing</h1>
+      <p class="page-intro">
+        Notes on backend systems, agentic AI, and things I figure out while building.
+        Newest first.
+      </p>
+    </header>
 
-        <div class="grid gap-10">
-            {sortedPosts.map((post) => (
-                <article class="flex flex-col md:flex-row gap-8 items-start group">
-                     {post.data.image && (
-                        <a href={`/blog/${post.slug}/`} class="w-full md:w-1/3 aspect-video rounded-xl overflow-hidden bg-zinc-100 dark:bg-zinc-800 block">
-                             <img src={post.data.image.url} alt={post.data.image.alt || post.data.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                        </a>
-                     )}
-                    <div class="flex-1">
-                        <div class="flex items-center gap-2 text-sm text-zinc-500 dark:text-zinc-400 mb-2">
-                            <time datetime={post.data.pubDate.toISOString()}>{new Date(post.data.pubDate).toLocaleDateString()}</time>
-                            <span>&bull;</span>
-                            <span>{post.data.tags.join(', ')}</span>
-                        </div>
-                        <h2 class="text-2xl font-bold text-zinc-900 dark:text-white mb-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-                            <a href={`/blog/${post.slug}/`}>{post.data.title}</a>
-                        </h2>
-                        <p class="text-zinc-600 dark:text-zinc-400 leading-relaxed line-clamp-3">
-                            {post.data.description}
-                        </p>
-                        <a href={`/blog/${post.slug}/`} class="inline-block mt-4 text-indigo-600 dark:text-indigo-400 font-medium hover:underline">Read more &rarr;</a>
-                    </div>
-                </article>
-            ))}
-        </div>
+    <div class="posts">
+      {posts.map((post) => (
+        <a href={`/blog/${post.slug}/`} class="post">
+          <div class="post-top">
+            <time class="post-date" datetime={post.data.pubDate.toISOString()}>{fmt(post.data.pubDate)}</time>
+            {post.data.tags.length > 0 && (
+              <span class="post-tags">{post.data.tags.map((t) => `#${t}`).join(" ")}</span>
+            )}
+          </div>
+          <h2 class="post-title">{post.data.title}</h2>
+          <p class="post-desc">{post.data.description}</p>
+          <span class="post-read">read →</span>
+        </a>
+      ))}
     </div>
+
+    {posts.length === 0 && <p class="empty">No posts yet — check back soon.</p>}
+  </section>
 </Layout>
+
+<style>
+  .page-head { margin-bottom: 2.4rem; }
+  .page-title { font-size: clamp(2rem, 6vw, 3rem); color: var(--fg); margin: 0.9rem 0 0.7rem; }
+  .page-intro { color: var(--fg-soft); max-width: 60ch; }
+
+  .posts { display: flex; flex-direction: column; }
+  .post {
+    display: block;
+    padding: 1.5rem 0;
+    border-top: 1px solid var(--line);
+    transition: padding-left 0.18s ease;
+  }
+  .post:last-child { border-bottom: 1px solid var(--line); }
+  .post:hover { padding-left: 0.6rem; }
+  .post:hover .post-title { color: var(--accent); }
+  .post:hover .post-read { opacity: 1; color: var(--accent); }
+  .post-top { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; flex-wrap: wrap; }
+  .post-date { font-size: 0.76rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .post-tags { font-size: 0.74rem; color: var(--faint); }
+  .post-title { font-size: 1.3rem; color: var(--fg); transition: color 0.18s ease; }
+  .post-desc { color: var(--fg-soft); max-width: 66ch; margin: 0.4rem 0 0.7rem; }
+  .post-read { font-size: 0.8rem; color: var(--muted); opacity: 0.7; transition: opacity 0.18s ease, color 0.18s ease; }
+  .empty { color: var(--muted); padding: 2rem 0; }
+</style>

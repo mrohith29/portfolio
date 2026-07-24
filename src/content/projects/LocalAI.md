@@ -1,19 +1,17 @@
 ---
-title: 'LocalAI'
-description: 'Chat with AI with no Internet'
+title: "LocalAI"
+description: "Chat with AI models fully offline, no internet required."
 image:
-    url: '/localai-thumbnail.png'
-    alt: 'Wallpaper'
-worksImage1:
-    url: '/image-1.webp'
-    alt: 'first image of your project.'
-worksImage2:
-    url: '/image-2.webp'
-    alt: 'second image of your project.'
-platform: Web
-stack: Python | Flask | HTML | Jinja
-website: https://github.com/mrohith29/localai
-github: https://github.com/mrohith29/localai
+    url: "/localai-thumbnail.png"
+    alt: "LocalAI"
+platform: "Web"
+stack: "Python | Flask | Jinja"
+website: "https://github.com/mrohith29/localai"
+github: "https://github.com/mrohith29/localai"
+featured: false
+year: "2024"
+order: 5
+tech: ["Python", "Flask", "Ollama"]
 ---
 
-This application allows your to chat with AI models in the system without internet connection using Ollama's model downloaded locally using its API endpoint
+A small web app that lets you chat with AI models running entirely on your own machine — no internet, no third-party API. It talks to locally downloaded models through **Ollama's API endpoint**, wrapped in a simple Flask + Jinja interface. Built to understand how local inference works end to end.

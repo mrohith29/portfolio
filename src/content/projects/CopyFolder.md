@@ -1,21 +1,17 @@
 ---
-title: 'Copy Files'
-description: 'Copy or move folders from source to destination'
+title: "copyfolder"
+description: "A published PyPI CLI tool for moving folders — one command, no flags."
 image:
-    url: '/copyfolder-thumbnail.jpg'
-    alt: 'Wallpaper'
-worksImage1:
-    url: '/image-1.webp'
-    alt: 'first image of your project.'
-worksImage2:
-    url: '/image-2.webp'
-    alt: 'second image of your project.'
-platform: CLI
-stack: Python | CLI | Pypi
-website: https://pypi.org/project/copyfolder/
-github: https://github.com/mrohith29/copyfolder
+    url: "/copyfolder-thumbnail.jpg"
+    alt: "copyfolder CLI"
+platform: "CLI"
+stack: "Python | PyPI"
+website: "https://pypi.org/project/copyfolder/"
+github: "https://github.com/mrohith29/copyfolder"
+featured: false
+year: "2024"
+order: 6
+tech: ["Python", "PyPI", "CLI"]
 ---
 
-This is a CLI tool with writen in python using the os module of python, it has pretty simple functionalities like moving files including the folders present in the source location to the destination location.
-
-It used `move` as the entry point of the programm then without any extra flags just the source path and the destination path should be provided and Bhoom the files will the moved.
+A dead-simple command-line tool, built on Python's `os` module, that moves files and folders from a source to a destination. One entry point — `move` — takes a source and a destination path, and it's done. My first project **published to PyPI**, which taught me packaging, versioning, and shipping something other people can `pip install`.

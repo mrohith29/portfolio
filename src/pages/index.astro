@@ -1,109 +1,257 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Card from "../components/Card.astro";
+import FeaturedWork from "../components/FeaturedWork.astro";
 import { getCollection } from "astro:content";
 
-const pageTitle = "Mariyala Rohith | Developer";
-const allProjects = await getCollection("projects");
-const featuredProjects = allProjects.slice(0, 2); // Show top 2 projects
+const pageTitle = "Rohith Mariyala — Backend & Agentic-AI Engineer";
 
-const skills = [
-    { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" },
-    { name: "Java", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" },
-    { name: "TypeScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" },
-    { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" },
-    { name: "Astro", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/astro/astro-original.svg" },
-    { name: "FastAPI", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg" },
-    { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" },
-    { name: "AWS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" },
-    { name: "GCP", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecloud/googlecloud-original.svg" },
-    { name: "PostgreSQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" },
-    { name: "Redis", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/redis/redis-original.svg" },
-    { name: "Git", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" }
-];
+const projects = await getCollection("projects");
+const featured = projects
+  .filter((p) => p.data.featured)
+  .sort((a, b) => a.data.order - b.data.order);
+
+const experience = (await getCollection("experience")).sort((a, b) =>
+  b.data.start.localeCompare(a.data.start)
+);
+const current = experience.find((e) => e.data.current) ?? experience[0];
+
+const posts = (await getCollection("blog"))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 2);
+
+const fmtMonth = (s: string) =>
+  new Date(s + "-01").toLocaleDateString("en-US", { month: "short", year: "numeric" });
+
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Rohith Mariyala",
+  url: "https://rohithmariyala.com",
+  email: "mailto:mariyalarohith29@gmail.com",
+  jobTitle: "Backend & Agentic-AI Engineer",
+  worksFor: { "@type": "Organization", name: "Techolution" },
+  alumniOf: {
+    "@type": "CollegeOrUniversity",
+    name: "Gokaraju Rangaraju Institute of Engineering and Technology",
+  },
+  knowsAbout: [
+    "Backend Engineering",
+    "Agentic AI",
+    "FastAPI",
+    "AsyncIO",
+    "Distributed Systems",
+    "Cloud Computing",
+  ],
+  sameAs: [
+    "https://github.com/mrohith29",
+    "https://www.linkedin.com/in/mariyala-rohith/",
+  ],
+};
 ---
-
 <Layout pageTitle={pageTitle}>
-    <!-- Hero Section -->
-    <section class="flex flex-col-reverse lg:flex-row items-center justify-between gap-12 min-h-[80vh] py-12">
-        <div class="flex-1 space-y-6 text-center lg:text-left">
-            <div class="inline-block px-3 py-1 text-sm font-semibold rounded-full bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400">
-                Python Backend Engineer Intern @ Techolution
-            </div>
-            <h1 class="text-5xl lg:text-7xl font-bold tracking-tight text-zinc-900 dark:text-white">
-                Hi, I'm <br class="hidden lg:block" />
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 animate-gradient-x">
-                    Mariyala Rohith
-                </span>
-            </h1>
-            <p class="text-xl text-zinc-600 dark:text-zinc-300 max-w-2xl leading-relaxed">
-                I engineer scalable backend systems and build intelligent agentic AI solutions. Passionate about cloud architecture, high-concurrency systems, and creating intuitive user experiences.
-            </p>
-            <div class="flex flex-wrap gap-4 justify-center lg:justify-start pt-4">
-                <a href="/resume.pdf" target="_blank" class="px-8 py-3 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 font-semibold hover:opacity-90 transition-opacity shadow-lg hover:shadow-xl">
-                    Resume
-                </a>
-                <a href="mailto:mariyalarohith29@gmail.com" class="px-8 py-3 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white font-semibold hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors">
-                    Contact Me
-                </a>
-            </div>
-        </div>
-        
-        <div class="relative w-64 h-64 lg:w-96 lg:h-96 flex-shrink-0">
-             <div class="absolute inset-0 bg-gradient-to-tr from-indigo-500 to-purple-500 rounded-full blur-2xl opacity-20 animate-pulse"></div>
-            <img
-                src="/profilepic.webp"
-                alt="Mariyala Rohith Profile"
-                class="relative w-full h-full object-cover rounded-full border-4 border-white dark:border-zinc-800 shadow-2xl"
-                loading="eager"
-            />
-        </div>
-    </section>
+  <script type="application/ld+json" set:html={JSON.stringify(personSchema)} slot="head" />
 
-    <!-- Skills Section -->
-    <section class="py-20">
-        <h2 class="text-3xl font-bold text-center mb-12 text-zinc-900 dark:text-white">Tech Stack</h2>
-        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-8 max-w-5xl mx-auto">
-            {skills.map((skill) => (
-                <div class="flex flex-col items-center gap-2 group">
-                    <div class="w-16 h-16 p-3 rounded-xl bg-white dark:bg-zinc-800 shadow-md group-hover:scale-110 transition-transform duration-300 flex items-center justify-center border border-zinc-100 dark:border-zinc-700">
-                        <img src={skill.icon} alt={skill.name} class="w-full h-full" loading="lazy" />
-                    </div>
-                    <span class="text-sm font-medium text-zinc-600 dark:text-zinc-400 group-hover:text-indigo-500 transition-colors">{skill.name}</span>
-                </div>
-            ))}
-        </div>
-    </section>
+  <!-- ============ HERO ============ -->
+  <section class="hero container-t">
+    <div class="hero-main">
+      <p class="prompt hero-prompt">
+        <span class="user">rohith@prod</span>:<span class="path">~</span>$ <span class="cmd">whoami --full</span>
+      </p>
 
-    <!-- Featured Projects -->
-    <section class="py-20 border-t border-zinc-200 dark:border-zinc-800">
-        <div class="flex justify-between items-end mb-12 px-4">
-            <div>
-                <h2 class="text-3xl font-bold text-zinc-900 dark:text-white">Selected Works</h2>
-                <p class="text-zinc-600 dark:text-zinc-400 mt-2">Some of the projects I've built</p>
-            </div>
-            <a href="/works/" class="hidden sm:flex items-center text-indigo-600 dark:text-indigo-400 font-medium hover:translate-x-1 transition-transform">
-                View All 
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-            </a>
+      <h1 class="hero-name">Rohith Mariyala<span class="cursor" aria-hidden="true"></span></h1>
+
+      <p class="hero-role">Backend &amp; Agentic-AI Engineer</p>
+
+      <span class="status amber hero-status">
+        <span class="live"></span> Associate Backend Developer @ Techolution
+      </span>
+
+      <p class="hero-manifesto">
+        I don't collect tools to look employable. I pick up whatever a real problem
+        needs — a new language, a new stack, a new idea — and go deep enough to ship it.
+        <span class="hm-strong">The work below is the proof.</span>
+      </p>
+
+      <div class="hero-cta">
+        <a href="/works/" class="btn btn-primary">view work →</a>
+        <a href="/resume.pdf" target="_blank" rel="noopener" class="btn btn-ghost">resume</a>
+        <a href="mailto:mariyalarohith29@gmail.com" class="btn btn-ghost">get in touch</a>
+      </div>
+    </div>
+
+    <aside class="hero-readout panel" aria-label="Quick facts">
+      <div class="panel-bar">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="ttl">cat ./status.json</span>
+      </div>
+      <div class="readout-body">
+        <div class="kv"><span class="k">role</span><span class="v">Associate Backend Dev</span></div>
+        <div class="kv"><span class="k">at</span><span class="v amber">Techolution</span></div>
+        <div class="kv"><span class="k">focus</span><span class="v">scaling + agentic</span></div>
+        <div class="kv"><span class="k">cgpa</span><span class="v">8.99 / 10</span></div>
+        <div class="kv"><span class="k">based</span><span class="v">Hyderabad, IN</span></div>
+        <div class="kv"><span class="k">status</span><span class="v ok">open to opportunities</span></div>
+      </div>
+    </aside>
+  </section>
+
+  <!-- ============ SELECTED WORK ============ -->
+  <section class="block container-t">
+    <div class="block-head">
+      <p class="prompt"><span class="user">rohith@prod</span>:<span class="path">~</span>$ <span class="cmd">ls ./work --featured</span></p>
+      <a href="/works/" class="block-more">all work →</a>
+    </div>
+    <div class="work-grid">
+      {featured.map((p) => (
+        <FeaturedWork
+          slug={p.slug}
+          title={p.data.title}
+          description={p.data.description}
+          problem={p.data.problem}
+          outcome={p.data.outcome}
+          tech={p.data.tech}
+          year={p.data.year}
+          github={p.data.github}
+          website={p.data.website}
+        />
+      ))}
+    </div>
+  </section>
+
+  <!-- ============ CURRENTLY (experience preview) ============ -->
+  {current && (
+    <section class="block container-t">
+      <div class="block-head">
+        <p class="prompt"><span class="user">rohith@prod</span>:<span class="path">~</span>$ <span class="cmd">cat ./experience --head 1</span></p>
+        <a href="/experience/" class="block-more">full history →</a>
+      </div>
+      <a href="/experience/" class="cur-card panel">
+        <div class="cur-body">
+          <div class="cur-top">
+            <span class="cur-role">{current.data.role}</span>
+            <span class="status amber"><span class="live"></span> now</span>
+          </div>
+          <div class="cur-company">{current.data.company} · {current.data.location}</div>
+          <p class="cur-summary">{current.data.summary}</p>
+          <div class="cur-time">{fmtMonth(current.data.start)} → present</div>
         </div>
-        
-        <ul class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {allProjects.map((card) => (
-                <Card
-                    url={`/projects/${card.slug}/`}
-                    image={card.data.image.url}
-                    title={card.data.title}
-                    body={card.data.description}
-                />
-            ))}
-        </ul>
-        
-        <div class="mt-8 text-center sm:hidden">
-            <a href="/works/" class="btn btn-secondary">View All Projects</a>
-        </div>
+      </a>
     </section>
-    
+  )}
+
+  <!-- ============ WRITING ============ -->
+  {posts.length > 0 && (
+    <section class="block container-t">
+      <div class="block-head">
+        <p class="prompt"><span class="user">rohith@prod</span>:<span class="path">~</span>$ <span class="cmd">tail ./writing</span></p>
+        <a href="/blog/" class="block-more">all posts →</a>
+      </div>
+      <div class="post-list">
+        {posts.map((post) => (
+          <a href={`/blog/${post.slug}/`} class="post-row">
+            <span class="post-date">{post.data.pubDate.toLocaleDateString("en-US", { day: "2-digit", month: "short", year: "numeric" })}</span>
+            <span class="post-title">{post.data.title}</span>
+            <span class="post-arrow">→</span>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- ============ CONTACT ============ -->
+  <section class="block container-t contact">
+    <p class="prompt"><span class="user">rohith@prod</span>:<span class="path">~</span>$ <span class="cmd">./say-hi.sh</span></p>
+    <h2 class="contact-h">Building something? Hiring? Just curious?</h2>
+    <p class="contact-sub">The fastest way to reach me is email — I read everything.</p>
+    <div class="hero-cta">
+      <a href="mailto:mariyalarohith29@gmail.com" class="btn btn-primary">mariyalarohith29@gmail.com</a>
+      <a href="https://www.linkedin.com/in/mariyala-rohith/" target="_blank" rel="noopener" class="btn btn-ghost">linkedin ↗</a>
+      <a href="https://github.com/mrohith29" target="_blank" rel="noopener" class="btn btn-ghost">github ↗</a>
+    </div>
+  </section>
 </Layout>
+
+<style>
+  /* Hero */
+  .hero {
+    display: grid;
+    grid-template-columns: 1.5fr 0.9fr;
+    gap: 2.5rem;
+    align-items: start;
+    padding-block: 1.5rem 3.5rem;
+  }
+  .hero-prompt { margin-bottom: 1.1rem; }
+  .hero-name { font-size: clamp(2.2rem, 6vw, 3.6rem); font-weight: 800; color: var(--fg); }
+  .hero-role { font-size: 1.05rem; color: var(--fg-soft); margin: 0.6rem 0 1rem; }
+  .hero-status { margin-bottom: 1.5rem; }
+  .hero-manifesto {
+    color: var(--fg-soft);
+    max-width: 54ch;
+    line-height: 1.75;
+    margin-bottom: 1.8rem;
+  }
+  .hm-strong { color: var(--fg); }
+  .hero-cta { display: flex; flex-wrap: wrap; gap: 0.7rem; }
+
+  .hero-readout { position: sticky; top: 5rem; }
+  .readout-body { padding: 0.9rem 1.1rem; font-size: 0.85rem; }
+
+  /* Section blocks */
+  .block { padding-block: 2.2rem; }
+  .block-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.4rem;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 0.9rem;
+  }
+  .block-more { font-size: 0.82rem; color: var(--muted); white-space: nowrap; }
+  .block-more:hover { color: var(--accent); }
+
+  .work-grid { display: grid; gap: 1.4rem; }
+
+  /* Currently card */
+  .cur-card { display: block; transition: border-color 0.2s ease; }
+  .cur-card:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+  .cur-body { padding: 1.3rem 1.4rem; }
+  .cur-top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 0.35rem; }
+  .cur-role { font-size: 1.15rem; font-weight: 700; color: var(--fg); }
+  .cur-company { color: var(--accent); font-size: 0.9rem; margin-bottom: 0.6rem; }
+  .cur-summary { color: var(--fg-soft); max-width: 62ch; margin-bottom: 0.7rem; }
+  .cur-time { font-size: 0.78rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+  /* Writing rows */
+  .post-list { display: flex; flex-direction: column; }
+  .post-row {
+    display: grid;
+    grid-template-columns: 8rem 1fr auto;
+    gap: 1rem;
+    align-items: baseline;
+    padding: 0.9rem 0;
+    border-top: 1px solid var(--line);
+    transition: padding-left 0.18s ease;
+  }
+  .post-row:hover { padding-left: 0.5rem; }
+  .post-row:hover .post-title { color: var(--accent); }
+  .post-row:hover .post-arrow { color: var(--accent); }
+  .post-date { font-size: 0.78rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .post-title { font-size: 1rem; color: var(--fg); transition: color 0.18s ease; }
+  .post-arrow { color: var(--faint); transition: color 0.18s ease; }
+
+  /* Contact */
+  .contact { border-top: 1px solid var(--line); margin-top: 1rem; }
+  .contact-h { font-size: clamp(1.4rem, 3.5vw, 2rem); color: var(--fg); margin: 1rem 0 0.5rem; }
+  .contact-sub { color: var(--fg-soft); margin-bottom: 1.5rem; }
+
+  @media (max-width: 820px) {
+    .hero { grid-template-columns: 1fr; gap: 1.8rem; }
+    .hero-readout { position: static; }
+  }
+  @media (max-width: 560px) {
+    .post-row { grid-template-columns: 1fr auto; }
+    .post-date { grid-column: 1 / -1; }
+  }
+</style>
