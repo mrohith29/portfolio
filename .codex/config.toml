@@ -1,5 +1,0 @@
-[mcp_servers.applyto_invideo]
-url = "https://careers.invideo.io/mcp/core"
-
-[mcp_servers.applyto_invideo.http_headers]
-Authorization = "Bearer applyto_zBockO6KILMNZc7qSlqYSZOkmraXGDPE"
