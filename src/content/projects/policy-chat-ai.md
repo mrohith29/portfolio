@@ -21,10 +21,10 @@ tech: ["FastAPI", "Gemini API", "React", "PostgreSQL", "Supabase Auth", "Docker"
 
 **PolicyChat AI** is a prototype that turns dense policy, legal, and compliance documents into something you can just *ask*. It was built as a proof of concept — to see how far a retrieval-grounded LLM could go on real, messy documents.
 
-### The problem
+## The problem
 Nobody reads a 60-page policy PDF to answer one question. I wanted a system that could ingest complex documents — PDF, DOCX, PPTX — and answer questions about them accurately, with enough context to be trusted for legal and policy content.
 
-### What I built
+## What I built
 - **Grounded answers** — used Google's **Gemini API** with retrieval so responses stay tied to the source document instead of hallucinating.
 - **Real document ingestion** — a pipeline that parses and understands mixed formats (PDF/DOCX/PPTX), not just plain text.
 - **Persistent, personal sessions** — **Supabase authentication** for secure sign-in, so every user keeps their own multi-session chat history.

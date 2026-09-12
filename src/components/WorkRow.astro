@@ -10,8 +10,8 @@ const { slug, title, description, tech = [], year } = Astro.props;
 ---
 <a href={`/projects/${slug}/`} class="wr">
   <div class="wr-head">
-    <span class="wr-mark">›</span>
-    <h4 class="wr-title">{title}</h4>
+    <span class="wr-mark" aria-hidden="true">›</span>
+    <h3 class="wr-title">{title}</h3>
     {year && <span class="wr-year">{year}</span>}
   </div>
   <p class="wr-desc">{description}</p>

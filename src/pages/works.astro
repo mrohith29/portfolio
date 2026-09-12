@@ -25,7 +25,7 @@ const learning = projects
       </p>
     </header>
 
-    <div class="group-label eyebrow">shipped &amp; production-shaped</div>
+    <h2 class="group-label eyebrow">shipped &amp; production-shaped</h2>
     <div class="work-grid">
       {featured.map((p) => (
         <FeaturedWork
@@ -42,7 +42,7 @@ const learning = projects
       ))}
     </div>
 
-    <div class="group-label eyebrow later">built to learn — where the fundamentals came from</div>
+    <h2 class="group-label eyebrow later">built to learn — where the fundamentals came from</h2>
     <div class="row-list">
       {learning.map((p) => (
         <WorkRow
@@ -61,7 +61,8 @@ const learning = projects
   .page-head { margin-bottom: 2.6rem; }
   .page-title { font-size: clamp(2rem, 6vw, 3rem); color: var(--fg); margin: 0.9rem 0 0.7rem; }
   .page-intro { color: var(--fg-soft); max-width: 58ch; line-height: 1.75; }
-  .group-label { display: block; margin-bottom: 1.3rem; }
+  /* Real <h2> for the outline, but keep the small eyebrow look (base sets h2 bold) */
+  .group-label { display: block; margin-bottom: 1.3rem; font-weight: 400; }
   .group-label.later { margin-top: 3.5rem; }
   .work-grid { display: grid; gap: 1.4rem; }
   .row-list { display: flex; flex-direction: column; border-bottom: 1px solid var(--line); }

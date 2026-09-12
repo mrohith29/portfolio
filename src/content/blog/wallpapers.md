@@ -25,7 +25,7 @@ You invest your time add all the scrap you find it useful and insert them.
 
 This is one of the wallpapers which I designed might descibe my thoughts:
 
-<img width="500" src="/wallpaper-blog.png" alt="Custom Wallpaper" class="rounded-lg shadow-md my-4">
+<img width="500" height="287" src="/wallpaper-blog.png" alt="Custom Wallpaper" loading="lazy" decoding="async">
 
 Even I found nothing in the internet which accurately describes you so I took a step to design my own.
 

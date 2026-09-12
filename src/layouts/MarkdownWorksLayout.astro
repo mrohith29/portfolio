@@ -1,7 +1,9 @@
 ---
 import Layout from "./Layout.astro";
+import { imageSize } from "../lib/imageSize";
 const { frontmatter } = Astro.props;
 const liveIsGithub = frontmatter.website === frontmatter.github;
+const hero = imageSize(frontmatter.image?.url);
 ---
 <Layout pageTitle={`${frontmatter.title} — Rohith Mariyala`} description={frontmatter.description}>
   <article class="proj container-t">
@@ -33,7 +35,16 @@ const liveIsGithub = frontmatter.website === frontmatter.github;
     </header>
 
     {frontmatter.image?.url && (
-      <img class="proj-hero" src={frontmatter.image.url} alt={frontmatter.image.alt} loading="lazy" />
+      <img
+        class="proj-hero"
+        src={frontmatter.image.url}
+        alt={frontmatter.image.alt}
+        width={hero?.width}
+        height={hero?.height}
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+      />
     )}
 
     <div class="prose-t proj-body">

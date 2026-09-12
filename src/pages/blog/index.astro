@@ -57,12 +57,13 @@ const fmt = (d: Date) =>
   .post:last-child { border-bottom: 1px solid var(--line); }
   .post:hover { padding-left: 0.6rem; }
   .post:hover .post-title { color: var(--accent); }
-  .post:hover .post-read { opacity: 1; color: var(--accent); }
+  .post:hover .post-read { color: var(--accent); }
   .post-top { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; flex-wrap: wrap; }
   .post-date { font-size: 0.76rem; color: var(--muted); font-variant-numeric: tabular-nums; }
-  .post-tags { font-size: 0.74rem; color: var(--faint); }
+  .post-tags { font-size: 0.74rem; color: var(--muted); }
   .post-title { font-size: 1.3rem; color: var(--fg); transition: color 0.18s ease; }
   .post-desc { color: var(--fg-soft); max-width: 66ch; margin: 0.4rem 0 0.7rem; }
-  .post-read { font-size: 0.8rem; color: var(--muted); opacity: 0.7; transition: opacity 0.18s ease, color 0.18s ease; }
+  /* No opacity dimming — it dropped --muted below the 4.5:1 it's tuned for */
+  .post-read { font-size: 0.8rem; color: var(--muted); transition: color 0.18s ease; }
   .empty { color: var(--muted); padding: 2rem 0; }
 </style>

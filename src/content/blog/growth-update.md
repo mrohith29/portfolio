@@ -17,19 +17,19 @@ Here are the areas I'm focusing on, which I believe are crucial for my future de
 - [x] Industry Experience (Working on real-time projects)
 - [x] Machine Learning
 
-### 1) Problem Solving:
+## 1) Problem Solving:
 
 I believe that problem-solving skills are essential for any job or role, including specialized positions. Learning Data Structures and Algorithms (DSA), practicing problems at different difficulty levels, understanding the problem, and coming up with efficient solutions are not only important for cracking interviews but also for applying algorithms in real-world scenarios.
 
-### 2) Industry Experience:
+## 2) Industry Experience:
 
 I'm happy to share that I have been working professionally for the past five months. During this time, I've applied my ideas and skills to help organizations grow. I'm also making good use of the money I earn from my internship. I hope that the experience I'm gaining and the time I'm investing will be worthwhile and provide me with a clear perspective on my future goals.
 
-### 3) Machine Learning:
+## 3) Machine Learning:
 
 I'm becoming increasingly interested in pursuing a career in Machine Learning. The impact it is having on various industries and the future scope of AI are fascinating and overwhelming. I'm working on understanding the fundamental concepts of ML and their low-level implementation to build a solid foundation in this field.
 
-### Things I Should Continue to Do:
+## Things I Should Continue to Do:
 - [ ] Write blogs regularly
 - [ ] Improve problem-solving skills
 - [ ] Perform better professionally

@@ -46,11 +46,14 @@
   --bg-sunk:   #ece7d8;
   --fg:        #2b2410;
   --fg-soft:   #4d452e;
-  --muted:     #8a7c58;
-  --faint:     #b3a884;
-  --accent:    #9a5b00;   /* amber, darkened for contrast on paper */
+  /* Contrast-checked against --bg / --bg-elev / --bg-sunk.
+     --muted, --accent and --ok clear 4.5:1 (AA body text);
+     --faint is decorative only (glyphs, rules) and clears 3:1. */
+  --muted:     #706548;
+  --faint:     #8b7e56;
+  --accent:    #945800;   /* amber, darkened for contrast on paper */
   --accent-2:  #b06d00;
-  --ok:        #4c7a24;
+  --ok:        #467121;
   --path:      #3f6390;
   --line:      #ddd5bf;
   --line-soft: #e7e0cd;
@@ -73,7 +76,7 @@
   --fg:        #e9dcbf;
   --fg-soft:   #c9b98f;
   --muted:     #8a7c58;
-  --faint:     #5f5636;
+  --faint:     #706540;   /* lifted to 3:1 — was #5f5636 (2.7:1) */
   --accent:    #ffb000;   /* phosphor amber */
   --accent-2:  #ffc23d;
   --ok:        #8ac061;

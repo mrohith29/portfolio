@@ -97,7 +97,8 @@ const personSchema = {
   </section>
 
   <!-- ============ SELECTED WORK ============ -->
-  <section class="block container-t">
+  <section class="block container-t" aria-labelledby="h-work">
+    <h2 id="h-work" class="sr-only">Selected work</h2>
     <div class="block-head">
       <p class="prompt"><span class="user">rohith@prod</span>:<span class="path">~</span>$ <span class="cmd">ls ./work --featured</span></p>
       <a href="/works/" class="block-more">all work →</a>
@@ -121,7 +122,8 @@ const personSchema = {
 
   <!-- ============ CURRENTLY (experience preview) ============ -->
   {current && (
-    <section class="block container-t">
+    <section class="block container-t" aria-labelledby="h-current">
+      <h2 id="h-current" class="sr-only">Currently</h2>
       <div class="block-head">
         <p class="prompt"><span class="user">rohith@prod</span>:<span class="path">~</span>$ <span class="cmd">cat ./experience --head 1</span></p>
         <a href="/experience/" class="block-more">full history →</a>
@@ -142,7 +144,8 @@ const personSchema = {
 
   <!-- ============ WRITING ============ -->
   {posts.length > 0 && (
-    <section class="block container-t">
+    <section class="block container-t" aria-labelledby="h-writing">
+      <h2 id="h-writing" class="sr-only">Recent writing</h2>
       <div class="block-head">
         <p class="prompt"><span class="user">rohith@prod</span>:<span class="path">~</span>$ <span class="cmd">tail ./writing</span></p>
         <a href="/blog/" class="block-more">all posts →</a>
@@ -152,7 +155,7 @@ const personSchema = {
           <a href={`/blog/${post.id}/`} class="post-row">
             <span class="post-date">{post.data.pubDate.toLocaleDateString("en-US", { day: "2-digit", month: "short", year: "numeric" })}</span>
             <span class="post-title">{post.data.title}</span>
-            <span class="post-arrow">→</span>
+            <span class="post-arrow" aria-hidden="true">→</span>
           </a>
         ))}
       </div>

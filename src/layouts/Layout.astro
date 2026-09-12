@@ -72,8 +72,9 @@ const ogImage = new URL(image, Astro.site ?? Astro.url);
     <slot name="head" />
   </head>
   <body>
+    <a href="#main" class="skip-link">skip to content</a>
     <Header />
-    <main class="site-main" transition:animate="fade">
+    <main id="main" class="site-main" transition:animate="fade">
       <slot />
     </main>
     <Footer />
@@ -91,6 +92,11 @@ const ogImage = new URL(image, Astro.site ?? Astro.url);
         }
         if (!el) return false;
         el.scrollIntoView({ behavior: prefersReduced ? "auto" : "smooth", block: "start" });
+        // Move focus too, or the skip link scrolls but tab order stays in the header.
+        if (el instanceof HTMLElement) {
+          if (!el.hasAttribute("tabindex")) el.setAttribute("tabindex", "-1");
+          el.focus({ preventScroll: true });
+        }
         return true;
       };
 
@@ -118,5 +124,22 @@ const ogImage = new URL(image, Astro.site ?? Astro.url);
   .site-main {
     min-height: 70vh;
     padding-block: 2.5rem 1rem;
+    scroll-margin-top: 4.5rem;
   }
+
+  /* Off-screen until focused — first tab stop past the sticky header's 6 links */
+  .skip-link {
+    position: absolute;
+    left: 0.75rem;
+    top: -4rem;
+    z-index: 100;
+    font-size: 0.82rem;
+    padding: 0.55rem 0.9rem;
+    border-radius: 0 0 8px 8px;
+    background: var(--accent);
+    color: var(--bg);
+    transition: top 0.15s ease;
+  }
+  /* :focus, not :focus-visible — a focused skip link must always be visible */
+  .skip-link:focus { top: 0; }
 </style>

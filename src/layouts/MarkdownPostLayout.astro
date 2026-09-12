@@ -1,6 +1,8 @@
 ---
 import Layout from "./Layout.astro";
+import { imageSize } from "../lib/imageSize";
 const { frontmatter, readingTime } = Astro.props;
+const hero = imageSize(frontmatter.image?.url);
 const fmt = (d: Date | string) =>
   new Date(d).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
 ---
@@ -16,15 +18,24 @@ const fmt = (d: Date | string) =>
     <header class="post-head">
       <div class="post-meta">
         <time datetime={new Date(frontmatter.pubDate).toISOString()}>{fmt(frontmatter.pubDate)}</time>
-        {readingTime && <><span class="sep">·</span><span>{readingTime}</span></>}
-        <span class="sep">·</span><span>{frontmatter.author}</span>
+        {readingTime && <><span class="sep" aria-hidden="true">·</span><span>{readingTime}</span></>}
+        <span class="sep" aria-hidden="true">·</span><span>{frontmatter.author}</span>
       </div>
       <h1 class="post-title">{frontmatter.title}</h1>
       {frontmatter.description && <p class="post-lede">{frontmatter.description}</p>}
     </header>
 
     {frontmatter.image?.url && (
-      <img class="post-hero" src={frontmatter.image.url} alt={frontmatter.image.alt} loading="lazy" />
+      <img
+        class="post-hero"
+        src={frontmatter.image.url}
+        alt={frontmatter.image.alt}
+        width={hero?.width}
+        height={hero?.height}
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+      />
     )}
 
     <div class="prose-t post-body">

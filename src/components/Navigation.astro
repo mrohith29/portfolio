@@ -68,7 +68,8 @@ const links = [
     background: var(--accent);
     box-shadow: var(--glow);
   }
-  .nav-link.ext { color: var(--faint); }
+  /* --faint is decorative-only (3:1); this is a real link, so it stays on --muted
+     and leans on the ↗ to read as secondary. */
   .nav-link.ext:hover { color: var(--accent); }
 
   @media (max-width: 640px) {
